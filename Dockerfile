@@ -7,7 +7,7 @@ RUN apt-get update -y
 RUN apt-get upgrade -y
 RUN apt-get install cmake build-essential qt4-dev-tools libexpat1-dev libboost-all-dev -y
 
-RUN apt-get install xfonts-75dpi xfonts-100dpi imagemagick wget
+RUN apt-get install xfonts-75dpi xfonts-100dpi imagemagick wget -y
 
 # module load cmake/3.4.3
 
@@ -40,25 +40,5 @@ RUN cmake -DGEANT4_FORCE_QT4=ON -DGEANT4_USE_QT=ON -DCMAKE_INSTALL_PREFIX=$INSTA
 
 run make -j$MAKE_PROCESSES install
 
-# Download DAWN
-RUN mkdir ~/DAWN; \
-    cd ~/DAWN; \
-    wget http://geant4.kek.jp/~tanaka/src/dawn_3_90b.tgz
-
-# Extract DAWN
-RUN cd ~/DAWN; \
-    tar -xzf dawn_3_90b.tgz
-
-# Build DAWN
-RUN cd ~/DAWN/dawn_3_90b; \
-    DAWN_PS_PREVIEWER="NONE"; \
-    make clean; \
-    make guiclean; \
-    make; \
-    make install
-
-
-
 # Reduce image size
-RUN rm -r ~/DAWN/ ~/GEANT4/ ~/github/*; \
-    apt-get autoremove; apt-get clean
+RUN apt-get autoremove; apt-get clean
