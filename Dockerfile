@@ -1,3 +1,16 @@
+FROM ubuntu
+
+MAINTAINER Simon Clucas <simon@blueapoge.com>
+
+# Prepare system
+RUN apt-get update -y
+RUN apt-get upgrade -y
+RUN apt-get install cmake build-essential qt4-dev-tools libexpat1-dev libboost-all-dev -y
+
+RUN apt-get install xfonts-75dpi xfonts-100dpi imagemagick wget
+
+# module load cmake/3.4.3
+
 ENV SW_NAME=geant4
 ENV PACKAGE_VERSION=10.05
 ENV PACKAGE_NAME=$SW_NAME.$PACKAGE_VERSION
